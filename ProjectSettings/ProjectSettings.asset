@@ -45,7 +45,7 @@ PlayerSettings:
   defaultScreenWidth: 250
   defaultScreenHeight: 500
   defaultScreenWidthWeb: 400
-  defaultScreenHeightWeb: 800
+  defaultScreenHeightWeb: 880
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 0
   m_MTRendering: 1
@@ -121,7 +121,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1
+  bundleVersion: 0.2
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
