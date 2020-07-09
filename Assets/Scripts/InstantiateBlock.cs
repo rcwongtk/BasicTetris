@@ -9,6 +9,7 @@ public class InstantiateBlock : MonoBehaviour
     public Sprite[] displaySprites;
     public GameObject[] displaySquares;
     public List<int> numbers;
+    public static bool gameEnded;
     
 
     // Start is called before the first frame update
@@ -29,6 +30,29 @@ public class InstantiateBlock : MonoBehaviour
 
     }
 
+    public void InstantiateController()
+    {
+
+        if(gameEnded == true)
+        {
+            Invoke("InstantiateNewBlock", 1f);
+        }
+        else
+        {
+            InstantiateNewBlock();
+        }
+      
+
+    }
+
+    public void UpdateDisplays()
+    {
+        // Display the sprite of the block that will be displayed in the future
+        displaySquares[0].GetComponent<SpriteRenderer>().sprite = displaySprites[numbers[0]];
+        displaySquares[1].GetComponent<SpriteRenderer>().sprite = displaySprites[numbers[1]];
+        displaySquares[2].GetComponent<SpriteRenderer>().sprite = displaySprites[numbers[2]];
+    }
+
     public void InstantiateNewBlock()
     {
         // Instantiate based on number from the end of the list
@@ -39,15 +63,6 @@ public class InstantiateBlock : MonoBehaviour
         numbers.Insert(0, Random.Range(0, blockPrefabs.Length));
 
         UpdateDisplays();
-
-    }
-
-    public void UpdateDisplays()
-    {
-        // Display the sprite of the block that will be displayed in the future
-        displaySquares[0].GetComponent<SpriteRenderer>().sprite = displaySprites[numbers[0]];
-        displaySquares[1].GetComponent<SpriteRenderer>().sprite = displaySprites[numbers[1]];
-        displaySquares[2].GetComponent<SpriteRenderer>().sprite = displaySprites[numbers[2]];
     }
 
     

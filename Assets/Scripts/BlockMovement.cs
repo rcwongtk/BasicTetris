@@ -16,6 +16,7 @@ public class BlockMovement : MonoBehaviour
 
     private float previousTime;
     public static int scoreCount;
+    public static int topScore;
     public static bool gameEnded;
 
     // Start is called before the first frame update
@@ -28,6 +29,12 @@ public class BlockMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(gameEnded == true)
+        {
+            ClearGrid();
+        }
+
         // Detect key stroke and move at set intervals
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -119,7 +126,7 @@ public class BlockMovement : MonoBehaviour
                 }
                 else if (gameEnded == true)
                 {
-                    GameOver();
+                    ClearGrid();
                 }
                 this.enabled = false;
                 
@@ -206,24 +213,16 @@ public class BlockMovement : MonoBehaviour
 
     public void GameOver()
     {
-        for (int i = height - 1; i >= 0; i--)
+        // Set the top Score if higher
+        if(scoreCount > topScore)
         {
-            for (int j = 0; j < width; j++)
-            {
-                if(grid[j, i] == null)
-                {
-
-                }
-                else
-                {
-                    Destroy(grid[j, i].gameObject);
-                    grid[j, i] = null;
-                }  
-            }
+            topScore = scoreCount;
         }
 
+        // Reset everything and display play button
         scoreCount = 0;
         GameObject.Find("ScoreDisplay").GetComponent<TMP_Text>().text = "Score " + scoreCount;
+        GameObject.Find("TopScore").GetComponent<TMP_Text>().text = "Top Score " + topScore;
         playButton = GameObject.FindGameObjectWithTag("PlayButton");
         playButton.transform.GetChild(0).gameObject.SetActive(true);
         
@@ -234,4 +233,12 @@ public class BlockMovement : MonoBehaviour
         gameEnded = false;
     }
 
+    public void ClearGrid()
+    {
+        var clones = GameObject.FindGameObjectsWithTag("clone");
+        foreach (var clone in clones)
+        {
+            Destroy(clone);
+        }
+    }
 }
